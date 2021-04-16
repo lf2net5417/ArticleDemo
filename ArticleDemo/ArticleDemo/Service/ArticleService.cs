@@ -56,7 +56,7 @@ namespace ArticleDemo.Service
         /// </summary>
         /// <param name="para"></param>
         /// <returns></returns>
-        public async Task<string> UpdateArticle(TArticleModel para)
+        public async Task<string> EditArticle(TArticleModel para)
         {
             var GetArticle = await _articleRepo.GetById(para.f_article_id);
             if(GetArticle == null)

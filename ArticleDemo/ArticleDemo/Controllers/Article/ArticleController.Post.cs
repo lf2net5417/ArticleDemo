@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ArticleDemo.Models.viewmodels.Article;
 using ArticleDemo.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ArticleDemo.Controllers.Article
 {
-    [Route("")]
-    [ApiController]
     public partial class ArticleController : ControllerBase
     {
-        private readonly ArticleService _ArticleService;
-
-        public ArticleController(ArticleService ArticleService)
+        [HttpPost("/Article/Create")]
+        public async Task<dynamic> CreateArticle(CreateArticleViewModel_para para)
         {
-            _ArticleService = ArticleService;
+            return await _ArticleService.CreateArticle(para);
         }
     }
 }
