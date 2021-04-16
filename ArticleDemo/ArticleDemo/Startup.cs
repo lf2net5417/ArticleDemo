@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ArticleDemo.Models.Dal;
+using Microsoft.EntityFrameworkCore;
 
 namespace ArticleDemo
 {
@@ -26,10 +28,19 @@ namespace ArticleDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var ConnectionStrings = Configuration.GetSection("ConnectionStrings");
+            services.Configure<DBList>(ConnectionStrings);
+            //Entity Framework Core
+            services.AddDbContext<ArticleDBContext>(options =>
+            {
+                options.UseSqlServer(ConnectionStrings["Article"]);
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ArticleDBContext dBContext)
         {
             if (env.IsDevelopment())
             {
@@ -46,6 +57,8 @@ namespace ArticleDemo
             {
                 endpoints.MapControllers();
             });
+
+            dBContext.Database.EnsureCreated();
         }
     }
 }
