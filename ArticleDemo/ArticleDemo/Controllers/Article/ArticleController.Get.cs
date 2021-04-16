@@ -12,13 +12,13 @@ namespace ArticleDemo.Controllers.Article
     public partial class ArticleController : ControllerBase
     {
         [HttpGet("/Article/List")]
-        public async Task<dynamic> GetList(Guid category_id)
+        public async Task<dynamic> GetList([FromQuery] Guid category_id)
         {
             return await _ArticleService.ArticleList(category_id);
         }
 
         [HttpGet("/Article/Detail")]
-        public async Task<dynamic> GetDetail(string article_id)
+        public async Task<dynamic> GetDetail([FromQuery] string article_id)
         {
             #region 驗證欄位
             if (string.IsNullOrEmpty(article_id))

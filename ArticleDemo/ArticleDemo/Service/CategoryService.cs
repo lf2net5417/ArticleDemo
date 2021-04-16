@@ -41,7 +41,7 @@ namespace ArticleDemo.Service
         /// <param name="category_id"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public async Task<string> UpdateCategory(TCategoryModel para)
+        public async Task<string> EditCategory(TCategoryModel para)
         {
             var GetCategory = _categoryRepo.GetById(para.f_category_id);
             if(GetCategory == null)
@@ -85,10 +85,19 @@ namespace ArticleDemo.Service
         /// </summary>
         /// <param name="category_id"></param>
         /// <returns></returns>
-        public async Task<TCategoryModel> GetSingleCategory(Guid category_id)
+        public async Task<dynamic> GetSingleCategory(Guid category_id)
         {
             var GetSingle = await _categoryRepo.GetById(category_id);
-            return GetSingle;
+            if(GetSingle == null)
+            {
+                return "查無此分類";
+            }
+            var result = new CategoryViewModel()
+            {
+                category_id = GetSingle.f_category_id,
+                category_name = GetSingle.f_category_name
+            };
+            return result;
         }
     }
 }
