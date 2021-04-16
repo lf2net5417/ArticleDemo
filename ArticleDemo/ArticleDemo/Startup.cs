@@ -12,6 +12,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ArticleDemo.Models.Dal;
 using Microsoft.EntityFrameworkCore;
+using ArticleDemo.Service;
+using ArticleDemo.Models.repository.Article;
+using ArticleDemo.Models.repository.Category;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Newtonsoft.Json;
+using System.Net.Mime;
+using Microsoft.AspNetCore.Http;
 
 namespace ArticleDemo
 {
@@ -28,6 +35,7 @@ namespace ArticleDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddHealthChecks();
 
             var ConnectionStrings = Configuration.GetSection("ConnectionStrings");
             services.Configure<DBList>(ConnectionStrings);
@@ -37,11 +45,36 @@ namespace ArticleDemo
                 options.UseSqlServer(ConnectionStrings["Article"]);
             });
 
+            #region Service©MRepo DI
+            services.AddSingleton<ArticleService>();
+            services.AddSingleton<CategoryService>();
+            services.AddSingleton<ArticleRepo>();
+            services.AddSingleton<CategoryRepo>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ArticleDBContext dBContext)
         {
+            #region ¯¸¥xÀË®Ö
+
+            app.UseHealthChecks("/chk", new HealthCheckOptions
+            {
+                ResponseWriter = async (context, report) =>
+                {
+                    var result = JsonConvert.SerializeObject(
+                        new
+                        {
+                            status = report.Status.ToString(),
+                            environment = env.EnvironmentName,
+                            name = "Article"
+
+                        });
+                    context.Response.ContentType = MediaTypeNames.Application.Json;
+                    await context.Response.WriteAsync(result);
+                }
+            });
+            #endregion
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
