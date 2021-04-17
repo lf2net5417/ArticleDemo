@@ -81,7 +81,7 @@ namespace ArticleDemo.Models.repository.Article
             if (f_category_id != Guid.Empty)
             {
                 sqlParam.Add("f_category_id", f_category_id);
-                sqlWhere += " and f_category_id = @f_category_id";
+                sqlWhere += " and ta.f_category_id = @f_category_id";
             }
             var sqlQuery = $@"select f_article_id article_id
                                 , ta.f_category_id category_id

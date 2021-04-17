@@ -20,9 +20,9 @@ namespace ArticleDemo.Controllers.Article
         }
 
         [HttpPut("/Article/Delete")]
-        public async Task<dynamic> DeleteArticle(Guid  article_id)
+        public async Task<dynamic> DeleteArticle(TArticleModel para)
         {
-            return await _ArticleService.DeleteArticle(article_id);
+            return await _ArticleService.DeleteArticle(para.f_article_id);
         }
     }
 }
