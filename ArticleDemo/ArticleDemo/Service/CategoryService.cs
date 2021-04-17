@@ -26,6 +26,11 @@ namespace ArticleDemo.Service
             {
                 return "分類名稱沒填";
             }
+            var getCategory = await _categoryRepo.GetByName(name);
+            if(getCategory != null)
+            {
+                return "已有相同名稱的分類";
+            }
             var NewCategory = new TCategoryModel()
             {
                 f_category_id = Guid.NewGuid(),

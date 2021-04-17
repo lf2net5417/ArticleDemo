@@ -69,7 +69,7 @@ namespace ArticleDemo.Models.repository.Category
             }
         }
         /// <summary>
-        /// 單筆分類
+        /// 用ID取得分類
         /// </summary>
         /// <param name="f_category_id"></param>
         /// <returns></returns>
@@ -80,6 +80,20 @@ namespace ArticleDemo.Models.repository.Category
             using (var conn = new SqlConnection(_dbList.Article))
             {
                 return await conn.QueryFirstOrDefaultAsync<TCategoryModel>(sqlQuery, new { f_category_id = f_category_id });
+            }
+        }
+        /// <summary>
+        /// 用名稱取得分類
+        /// </summary>
+        /// <param name="f_category_name"></param>
+        /// <returns></returns>
+        public async Task<TCategoryModel> GetByName(string f_category_name)
+        {
+            var sqlQuery = $@"select * from t_category where f_category_name = @f_category_name";
+
+            using (var conn = new SqlConnection(_dbList.Article))
+            {
+                return await conn.QueryFirstOrDefaultAsync<TCategoryModel>(sqlQuery, new { f_category_name = f_category_name });
             }
         }
         /// <summary>

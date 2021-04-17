@@ -88,5 +88,26 @@ namespace XUnitTest.Service
                 throw;
             }
         }
+        /// <summary>
+        /// 文章列表
+        /// </summary>
+        [Fact]
+        public void ArticleList()
+        {
+            var ArticleService = DbFixture.GetRequiredService<ArticleService>();
+            try
+            {
+                //Arrange 初始化
+                Guid catId = new Guid();
+                //Act 行為
+                var test = ArticleService.ArticleList(catId);
+                //Assert 驗證結果
+                Assert.True(test.Result != null, "測試通過");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -126,9 +126,13 @@ namespace ArticleDemo.Service
         /// </summary>
         /// <param name="article_id"></param>
         /// <returns></returns>
-        public async Task<ArticleViewModel> ArticleDetail(Guid article_id)
+        public async Task<dynamic> ArticleDetail(Guid article_id)
         {
             var detail = await _articleRepo.GetById(article_id);
+            if(detail == null)
+            {
+                return "文章不存在";
+            }
             var result = new ArticleViewModel()
             {
                 article_id = detail.article_id,
