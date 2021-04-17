@@ -11,12 +11,21 @@ namespace ArticleDemo.Controllers.Article
 {
     public partial class ArticleController : ControllerBase
     {
+        /// <summary>
+        /// 文章列表
+        /// </summary>
+        /// <param name="category_id"></param>
+        /// <returns></returns>
         [HttpGet("/Article/List")]
         public async Task<dynamic> GetList([FromQuery] Guid category_id)
         {
             return await _ArticleService.ArticleList(category_id);
         }
-
+        /// <summary>
+        /// 文章詳細
+        /// </summary>
+        /// <param name="article_id"></param>
+        /// <returns></returns>
         [HttpGet("/Article/Detail")]
         public async Task<dynamic> GetDetail([FromQuery] string article_id)
         {

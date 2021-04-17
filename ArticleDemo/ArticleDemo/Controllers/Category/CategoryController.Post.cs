@@ -11,6 +11,11 @@ namespace ArticleDemo.Controllers.Category
 {
     public partial class CategoryController : ControllerBase
     {
+        /// <summary>
+        /// 新增分類
+        /// </summary>
+        /// <param name="para"></param>
+        /// <returns></returns>
         [HttpPost("/Category/Create")]
         public async Task<dynamic> CreateCateogry(TCategoryModel para)
         {

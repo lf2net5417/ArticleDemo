@@ -1,4 +1,5 @@
 ﻿using ArticleDemo.Models.Dal;
+using ArticleDemo.Models.repository.Article;
 using ArticleDemo.Models.repository.Category;
 using ArticleDemo.Models.viewmodels.Category;
 using System;
@@ -11,9 +12,11 @@ namespace ArticleDemo.Service
     public class CategoryService
     {
         private readonly CategoryRepo _categoryRepo;
-        public CategoryService(CategoryRepo categoryRepo)
+        private readonly ArticleRepo _articleRepo;
+        public CategoryService(CategoryRepo categoryRepo, ArticleRepo articleRepo)
         {
             _categoryRepo = categoryRepo;
+            _articleRepo = articleRepo;
         }
         /// <summary>
         /// 新增分類
@@ -80,6 +83,11 @@ namespace ArticleDemo.Service
         /// <returns></returns>
         public async Task<string> DeleteCategory(Guid category_id)
         {
+            var checkArticle = await _articleRepo.GetArticleList(category_id);
+            if(checkArticle.Count() > 0)
+            {
+                return "此分類下有文章，不能刪除";
+            }
             await _categoryRepo.DeleteCategory(category_id);
             return "success";
         }

@@ -13,12 +13,21 @@ namespace ArticleDemo.Controllers.Article
 {
     public partial class ArticleController : ControllerBase
     {
+        /// <summary>
+        /// 修改文章
+        /// </summary>
+        /// <param name="para"></param>
+        /// <returns></returns>
         [HttpPut("/Article/Edit")]
         public async Task<dynamic> EditArticle(ArticleViewModel_para para)
         {
             return await _ArticleService.EditArticle(para);
         }
-
+        /// <summary>
+        /// 刪除文章
+        /// </summary>
+        /// <param name="para"></param>
+        /// <returns></returns>
         [HttpPut("/Article/Delete")]
         public async Task<dynamic> DeleteArticle(TArticleModel para)
         {

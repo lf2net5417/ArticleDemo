@@ -12,6 +12,11 @@ namespace ArticleDemo.Controllers.Article
 {
     public partial class ArticleController : ControllerBase
     {
+        /// <summary>
+        /// 新增文章
+        /// </summary>
+        /// <param name="para"></param>
+        /// <returns></returns>
         [HttpPost("/Article/Create")]
         public async Task<dynamic> CreateArticle(ArticleViewModel_para para)
         {
