@@ -13,7 +13,7 @@ namespace ArticleDemo.Controllers.Article
     public partial class ArticleController : ControllerBase
     {
         [HttpPost("/Article/Create")]
-        public async Task<dynamic> CreateArticle(CreateArticleViewModel_para para)
+        public async Task<dynamic> CreateArticle(ArticleViewModel_para para)
         {
             return await _ArticleService.CreateArticle(para);
         }

@@ -14,7 +14,7 @@ namespace ArticleDemo.Controllers.Article
     public partial class ArticleController : ControllerBase
     {
         [HttpPut("/Article/Edit")]
-        public async Task<dynamic> EditArticle(TArticleModel para)
+        public async Task<dynamic> EditArticle(ArticleViewModel_para para)
         {
             return await _ArticleService.EditArticle(para);
         }
