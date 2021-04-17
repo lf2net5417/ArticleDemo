@@ -20,6 +20,11 @@ namespace ArticleDemo.Service
             _categoryService = categoryService;
             _categoryRepo = categoryRepo;
         }
+        /// <summary>
+        /// 文章新增修改驗證
+        /// </summary>
+        /// <param name="para"></param>
+        /// <returns></returns>
         public async Task<dynamic> ArticleVerify(ArticleViewModel_para para)
         {
             if (string.IsNullOrEmpty(para.category_id) || !Guid.TryParse(para.category_id, out Guid id))

@@ -22,6 +22,7 @@ namespace ArticleDemo.Service
         /// <returns></returns>
         public async Task<dynamic> CreateCategory(string name)
         {
+            #region 驗證
             if (string.IsNullOrEmpty(name))
             {
                 return "分類名稱沒填";
@@ -31,6 +32,7 @@ namespace ArticleDemo.Service
             {
                 return "已有相同名稱的分類";
             }
+            #endregion
             var NewCategory = new TCategoryModel()
             {
                 f_category_id = Guid.NewGuid(),
@@ -48,11 +50,21 @@ namespace ArticleDemo.Service
         /// <returns></returns>
         public async Task<string> EditCategory(TCategoryModel para)
         {
-            var GetCategory = _categoryRepo.GetById(para.f_category_id);
+            #region 驗證
+            var GetCategory = await _categoryRepo.GetById(para.f_category_id);
             if(GetCategory == null)
             {
                 return "此分類不存在";
             }
+            if (string.IsNullOrEmpty(para.f_category_name))
+            {
+                return "分類名稱沒填";
+            }
+            if (GetCategory.f_category_name == para.f_category_name)
+            {
+                return "已有相同名稱的分類";
+            }
+            #endregion
             var UpdateCategory = new TCategoryModel()
             {
                 f_category_id = para.f_category_id,
@@ -68,7 +80,7 @@ namespace ArticleDemo.Service
         /// <returns></returns>
         public async Task<string> DeleteCategory(Guid category_id)
         {
-            var update = await _categoryRepo.DeleteCategory(category_id);
+            await _categoryRepo.DeleteCategory(category_id);
             return "success";
         }
         /// <summary>
