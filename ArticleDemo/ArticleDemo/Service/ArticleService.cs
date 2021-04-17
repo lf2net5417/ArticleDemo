@@ -114,7 +114,10 @@ namespace ArticleDemo.Service
         public async Task<dynamic> ArticleList(Guid category_id)
         {
             var GetArticle = await _articleRepo.GetArticleList(category_id);
-
+            if(GetArticle.Count() < 1)
+            {
+                return "查無資料";
+            }
             var result = GetArticle.Select(x => new ArticleListViewModel.data()
             {
                 article_id = x.article_id,

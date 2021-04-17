@@ -95,9 +95,13 @@ namespace ArticleDemo.Service
         /// 分類列表
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<CategoryListViewModel>> CategoryList()
+        public async Task<dynamic> CategoryList()
         {
             var GetCategory = await _categoryRepo.GetCategoryList();
+            if(GetCategory.Count() < 1)
+            {
+                return "查無資料";
+            }
             var result = GetCategory.Select(x => new CategoryListViewModel()
             {
                 category_id = x.f_category_id,
