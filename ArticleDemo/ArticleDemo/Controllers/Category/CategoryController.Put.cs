@@ -17,9 +17,9 @@ namespace ArticleDemo.Controllers.Category
             return await _CategoryService.EditCategory(para);
         }
         [HttpPut("/Category/Delete")]
-        public async Task<dynamic> DeleteCategory(Guid category_id)
+        public async Task<dynamic> DeleteCategory(TCategoryModel para)
         {
-            return await _CategoryService.DeleteCategory(category_id);
+            return await _CategoryService.DeleteCategory(para.f_category_id);
         }
     }
 }
