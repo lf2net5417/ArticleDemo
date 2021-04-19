@@ -48,8 +48,8 @@ namespace ArticleDemo
             #region Service和Repo DI
             services.AddSingleton<ArticleService>();
             services.AddSingleton<CategoryService>();
-            services.AddSingleton<ArticleRepo>();
-            services.AddSingleton<CategoryRepo>();
+            services.AddScoped<ArticleRepo>(); //用singleton的話可能在多人連線時會吃到同樣的資料
+            services.AddScoped<CategoryRepo>();
             #endregion
         }
 
